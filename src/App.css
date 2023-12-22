@@ -1,38 +1,80 @@
-.App {
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  background-color: #f4f5f8;
+}
+.content {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header {
+  color: #ffffff;
+  background-color: #2b3947;
+  min-height: 5em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  gap: 1em;
+  margin: 3em auto 0 auto;
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  padding: 1em 0;
+  max-width: 90%;
+}
+label {
   display: flex;
   flex-direction: column;
+  text-align: left;
+}
+.destinations {
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.trip-selection-wrapper {
+  display: flex;
+  gap: 0.7em;
+}
+
+.trip-selection {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 16px;
 }
 
-.App-link {
-  color: #61dafb;
+input[type="radio"] {
+  margin: 0 0.5em 0 0;
+  border: 0px;
+  height: 1.2em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dates {
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
+}
+input {
+  background-color: #f4f6f8;
+  border: none;
+  padding: 1em;
+  border-radius: 0.5em;
+  margin-top: 0.5em;
+}
+button {
+  background-color: #e81932;
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 18px;
+  padding: 1em;
+  border-radius: 0.5em;
+  border: none;
 }
