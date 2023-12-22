@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./reset.css";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <label htmlFor="round-trip">
+          <input type="radio" id="round-trip" name="round-trip" value="round" />
+            Round trip
+        </label>
+        <label htmlFor="one-way">
+          <input type="radio" id="one-way" name="one-way" value="one-way" /> 
+          One way
+        </label>
+      </div>
+      <div>
+        <label>
+          From: <input name="from" />
+        </label>
+        <label>
+          To: <input name="to" />
+        </label>
+      </div>
+      <div>
+        <label for="departure">
+          Departure:
+          <input type="date" id="departure" name="departure" />
+        </label>
+      </div>
     </div>
   );
 }
