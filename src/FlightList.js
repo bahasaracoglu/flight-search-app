@@ -98,6 +98,7 @@ function FlightList({ flights }) {
                       <p className="airport-code">{flight.departureCode}</p>
                       <p className="city">{flight.departureCity}</p>
                     </div>
+                    <p className="airline">{flight.airline}</p>
                     <p className="duration">{flight.duration}</p>
                     <div className="arrival-info">
                       <p className="time">{formatTime(flight.arrivalTime)}</p>

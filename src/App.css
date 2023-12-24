@@ -120,16 +120,18 @@ li:last-child {
   flex: content;
   padding: 0.7em;
   display: flex;
-  gap: 1em;
+  gap: 0.4em;
   background-color: #ffffff;
   align-items: center;
   justify-content: space-between;
 }
 .departure-info {
   text-align: left;
+  line-height: 20px;
 }
 .arrival-info {
   text-align: right;
+  line-height: 20px;
 }
 .duration {
   font-size: 15px;
