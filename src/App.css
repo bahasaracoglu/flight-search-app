@@ -24,7 +24,7 @@ form {
   gap: 1em;
   margin: 3em auto 0 auto;
   padding: 1em 0;
-  max-width: 90%;
+  max-width: 720px;
 }
 label {
   display: flex;
@@ -80,12 +80,15 @@ input {
 }
 .list-container {
   margin: 3em auto 0 auto;
+  background-color: #ffffff;
   max-width: 90%;
+  max-width: 720px;
+  border: 2px solid #e6e6e6;
 }
 .list {
-  border: 2px solid #e6e6e6;
+  border-top: 2px solid #e6e6e6;
   max-width: 720px;
-  margin: 1em auto;
+  margin: 1em auto 0 auto;
 }
 ul {
   margin-top: 2em;
@@ -109,6 +112,9 @@ li {
 
 li:first-child {
   margin-top: 1em;
+}
+li:last-child {
+  margin-bottom: 1em;
 }
 .flight-info {
   flex: content;
@@ -153,10 +159,12 @@ li:first-child {
   display: flex;
   flex-wrap: wrap;
   margin-top: 1em;
-  align-items: center;
-  justify-content: center;
+  align-items: end;
+
+  justify-content: flex-end;
 }
 .filter-button {
+  margin-right: 0.5em;
   line-height: 25px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -164,7 +172,7 @@ li:first-child {
   color: #232b38;
   background-color: #ffffff;
   cursor: pointer;
-  border: 1px solid #ddd; /* Hafif gri kenarlık */
+  border: 1px solid #ddd;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .filter-button:hover {
@@ -179,4 +187,41 @@ li:first-child {
   font-size: 12px;
   color: red;
   margin-top: 0.2em;
+}
+
+.list-header {
+  display: flex;
+  flex-direction: column;
+}
+.selected-date {
+  background-color: #ffffff;
+  padding: 1em;
+  font-size: 16px;
+  align-self: start;
+}
+
+.direction {
+  background-color: #e81932;
+  color: #ffffff;
+  padding: 1em;
+  align-self: start;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+}
+
+@media only screen and (min-width: 768px) {
+  .trip-selection-wrapper {
+    gap: 5em;
+  }
+  .destinations {
+    flex-direction: row;
+  }
+  .dates {
+    flex-direction: row;
+  }
 }

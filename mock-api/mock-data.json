@@ -105,7 +105,7 @@
     "departureTime": "2023-12-25T14:30:00",
     "arrivalTime": "2023-12-25T17:00:00",
     "duration": "2 hours 30 minutes",
-    "price": 250
+    "price": 220
   },
   {
     "id": 10,
@@ -117,7 +117,7 @@
     "departureTime": "2023-12-25T16:45:00",
     "arrivalTime": "2023-12-25T19:15:00",
     "duration": "2 hours 30 minutes",
-    "price": 260
+    "price": 180
   },
   {
     "id": 11,

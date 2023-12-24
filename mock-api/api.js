@@ -1,7 +1,7 @@
 const flights = require("./mock-data.json");
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors"); // cors eklenmiş
+const cors = require("cors");
 
 const app = express();
 const port = 8000;
@@ -9,16 +9,12 @@ const port = 8000;
 app.use(bodyParser.json());
 app.use(cors());
 
-// Basit bir uçuş veri seti
-
 app.get("/flights", (req, res) => {
-  // Parametrelerden gelen filtreleme
   const { departureCity, arrivalCity, departureDate, returnDate } = req.query;
   console.log(req.query);
   let filteredFlights = flights;
 
   if (departureCity) {
-    console.log("depp");
     filteredFlights = filteredFlights.filter(
       (flight) =>
         flight.departureCity.toLowerCase() === departureCity.toLowerCase()
@@ -45,6 +41,9 @@ app.get("/flights", (req, res) => {
         new Date(flight.arrivalTime).toDateString() ===
         new Date(returnDate).toDateString()
     );
+  }
+  if (filteredFlights.length === 0) {
+    res.status("400").statusMessage("No flights matching the criteria");
   }
 
   // Sunucu gecikmesi taklit ediliyor
