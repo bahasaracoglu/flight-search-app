@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import "./reset.css";
 import "./App.css";
 import DatePicker from "react-datepicker";
@@ -11,21 +11,29 @@ const App = () => {
     arrivalAirport: "",
     departureDate: null,
     returnDate: null,
-    round: true,
-    oneWay: false,
+    tripSelection: "round",
   });
 
   const [loading, setLoading] = useState(false);
   const [flights, setFlights] = useState([]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
 
     setFormValues((prevValues) => ({
       ...prevValues,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
+
+  const isReturnDisabled = formValues.tripSelection === "one-way";
+  useEffect(() => {
+    if (isReturnDisabled) {
+      setFormValues((prevValues) => ({ ...prevValues, returnDate: null }));
+    }
+  }, [isReturnDisabled]);
+
+  console.log(formValues);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,8 +67,9 @@ const App = () => {
           <div className="trip-selection">
             <input
               type="radio"
-              name="round"
-              checked={formValues.round}
+              name="tripSelection"
+              value="round"
+              checked={formValues.tripSelection === "round"}
               onChange={handleChange}
             />
             <label>Round trip</label>
@@ -68,8 +77,9 @@ const App = () => {
           <div className="trip-selection">
             <input
               type="radio"
-              name="oneWay"
-              checked={formValues.oneWay}
+              name="tripSelection"
+              value="one-way"
+              checked={formValues.tripSelection === "one-way"}
               onChange={handleChange}
             />
             <label>One way</label>
@@ -108,20 +118,22 @@ const App = () => {
               }
             />
           </label>
-          {!formValues.oneWay && (
-            <label>
+
+          <label>
+            <span className={isReturnDisabled ? "disabled-label" : ""}>
               Return:
-              <DatePicker
-                selected={formValues.returnDate}
-                onChange={(date) =>
-                  setFormValues((prevValues) => ({
-                    ...prevValues,
-                    returnDate: date,
-                  }))
-                }
-              />
-            </label>
-          )}
+            </span>
+            <DatePicker
+              disabled={isReturnDisabled}
+              selected={formValues.returnDate}
+              onChange={(date) =>
+                setFormValues((prevValues) => ({
+                  ...prevValues,
+                  returnDate: date,
+                }))
+              }
+            />
+          </label>
         </div>
 
         <button type="submit" id="search-button">

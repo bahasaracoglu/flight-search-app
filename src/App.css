@@ -31,6 +31,9 @@ label {
   flex-direction: column;
   text-align: left;
 }
+.disabled-label {
+  color: rgb(178, 178, 178);
+}
 .destinations {
   gap: 1em;
   display: flex;
@@ -66,6 +69,7 @@ input {
   margin-top: 0.5em;
 }
 #search-button {
+  cursor: pointer;
   background-color: #e81932;
   color: #ffffff;
   font-weight: 600;
@@ -99,6 +103,8 @@ li {
   min-height: 81px;
   box-sizing: border-box;
   max-width: 500px;
+  border: 1px solid #ddd; /* Hafif gri kenarlık */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 li:first-child {
@@ -106,7 +112,7 @@ li:first-child {
 }
 .flight-info {
   flex: content;
-  padding: 0.5em;
+  padding: 0.7em;
   display: flex;
   gap: 1em;
   background-color: #ffffff;
@@ -153,15 +159,17 @@ li:first-child {
 .filter-button {
   line-height: 25px;
   padding: 5px 10px;
-
   border-radius: 5px;
+  border: none;
   color: #232b38;
-  box-shadow: 0 4px 8px #dadada;
   background-color: #ffffff;
+  cursor: pointer;
+  border: 1px solid #ddd; /* Hafif gri kenarlık */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .filter-button:hover {
   border-color: #3685e7;
-  color: #3685e7 !important;
+  color: #3685e7;
 }
 .flight-item {
   height: 115px;
