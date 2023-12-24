@@ -3,7 +3,7 @@ import "./reset.css";
 import "./App.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+import { format, differenceInMinutes } from "date-fns";
 
 const App = () => {
   const [formValues, setFormValues] = useState({
@@ -17,7 +17,55 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [flights, setFlights] = useState([]);
   const [errors, setErrors] = useState({});
-  const [isFormValid, setIsFormValid] = useState(false);
+
+  const [sortOption, setSortOption] = useState(null);
+
+  const formatTime = (time) => {
+    const dateObject = new Date(time);
+    return format(dateObject, "HH:mm");
+  };
+
+  const handleSort = (option) => {
+    setSortOption(option);
+  };
+  console.log("sortOption", sortOption);
+
+  const getSortedFlights = () => {
+    let sortedFlights = [...flights];
+    console.log("sortedFlights", sortedFlights);
+
+    switch (sortOption) {
+      case "departure":
+        sortedFlights.sort(
+          (a, b) => new Date(a.departureTime) - new Date(b.departureTime)
+        );
+        break;
+      case "arrival":
+        sortedFlights.sort(
+          (a, b) => new Date(a.arrivalTime) - new Date(b.arrivalTime)
+        );
+        break;
+      case "price":
+        sortedFlights.sort((a, b) => a.price - b.price);
+        break;
+      case "duration":
+        sortedFlights.sort((a, b) => {
+          const durationDifference = differenceInMinutes(
+            new Date(a.departureTime),
+            new Date(b.departureTime)
+          );
+          return durationDifference;
+        });
+        break;
+      default:
+        // No sorting
+        break;
+    }
+
+    return sortedFlights;
+  };
+
+  const sortedFlights = getSortedFlights();
 
   const handleChange = (e) => {
     validateForm();
@@ -207,31 +255,39 @@ const App = () => {
 
       {loading && <p>Yükleniyor...</p>}
       <div className="filter-container">
-        <button className="filter-button">Departure</button>
-        <button className="filter-button">Arrival</button>
-        <button className="filter-button">Airline</button>
-        <button className="filter-button">Duration</button>
+        <button
+          className="filter-button"
+          onClick={() => handleSort("departure")}
+        >
+          Departure
+        </button>
+        <button className="filter-button" onClick={() => handleSort("arrival")}>
+          Arrival
+        </button>
+        <button className="filter-button" onClick={() => handleSort("price")}>
+          Price
+        </button>
+        <button
+          className="filter-button"
+          onClick={() => handleSort("duration")}
+        >
+          Duration
+        </button>
       </div>
       <div className="list-container">
         <ul className="list">
-          {flights.map((flight) => {
-            const departureTime = flight.departureTime;
-            const arrivalTime = flight.arrivalTime;
-            const depDateObject = new Date(departureTime);
-            const arrDateObject = new Date(arrivalTime);
-            const formattedDepartureTime = format(depDateObject, "HH:mm");
-            const formattedArrivalTime = format(arrDateObject, "HH:mm");
+          {getSortedFlights().map((flight) => {
             return (
               <li key={flight.id}>
                 <div className="flight-info">
                   <div className="departure-info">
-                    <p className="time">{formattedDepartureTime}</p>
+                    <p className="time">{formatTime(flight.departureTime)}</p>
                     <p className="airport-code">{flight.departureCode}</p>
                     <p className="city">{flight.departureCity}</p>
                   </div>
                   <p className="duration">{flight.duration}</p>
                   <div className="arrival-info">
-                    <p className="time">{formattedArrivalTime}</p>
+                    <p className="time">{formatTime(flight.arrivalTime)}</p>
                     <p className="airport-code">{flight.arrivalCode}</p>
                     <p className="city">{flight.arrivalCity}</p>
                   </div>
