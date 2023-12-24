@@ -7,8 +7,8 @@ import { format } from "date-fns";
 
 const App = () => {
   const [formValues, setFormValues] = useState({
-    departureAirport: "",
-    arrivalAirport: "",
+    departureCity: "City A",
+    arrivalCity: "City B",
     departureDate: null,
     returnDate: null,
     tripSelection: "round",
@@ -16,8 +16,11 @@ const App = () => {
 
   const [loading, setLoading] = useState(false);
   const [flights, setFlights] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChange = (e) => {
+    validateForm();
     const { name, value } = e.target;
 
     setFormValues((prevValues) => ({
@@ -35,14 +38,63 @@ const App = () => {
 
   console.log(formValues);
 
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    console.log(newErrors);
+
+    if (formValues.departureCity.trim() === "") {
+      newErrors.departureCity = "Departure city is required";
+      isValid = false;
+    }
+
+    if (formValues.arrivalCity.trim() === "") {
+      newErrors.arrivalCity = "Arrival city is required";
+      isValid = false;
+    }
+
+    if (!formValues.departureDate) {
+      newErrors.departureDate = "Departure date is required";
+      isValid = false;
+    }
+
+    if (!isReturnDisabled && !formValues.returnDate) {
+      newErrors.returnDate = "Return date is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
 
     try {
       setLoading(true);
 
+      // Parametreleri oluştur
+      const params = new URLSearchParams({
+        departureCity: formValues.departureCity,
+        arrivalCity: formValues.arrivalCity,
+        departureDate: formValues.departureDate
+          ? formValues.departureDate.toISOString()
+          : null,
+        returnDate: formValues.returnDate
+          ? formValues.returnDate.toISOString()
+          : null,
+        tripSelection: formValues.tripSelection,
+      });
+      console.log(params.toString());
+      const url = `http://localhost:8000/flights?${params.toString()}`;
+
       // Mock API'ye istek gönderme (burada gerçek bir API'ye istek gönderilmeli)
-      const response = await fetch("http://localhost:8000/flights", {
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -90,19 +142,25 @@ const App = () => {
             From:
             <input
               type="text"
-              name="departureAirport"
-              value={formValues.departureAirport}
+              name="departureCity"
+              value={formValues.departureCity}
               onChange={handleChange}
             />
+            {errors.departureCity && (
+              <p className="error-message">{errors.departureCity}</p>
+            )}
           </label>
           <label>
             To:
             <input
               type="text"
-              name="arrivalAirport"
-              value={formValues.arrivalAirport}
+              name="arrivalCity"
+              value={formValues.arrivalCity}
               onChange={handleChange}
             />
+            {errors.arrivalCity && (
+              <p className="error-message">{errors.arrivalCity}</p>
+            )}
           </label>
         </div>
         <div className="dates">
@@ -117,6 +175,9 @@ const App = () => {
                 }))
               }
             />
+            {errors.departureDate && (
+              <p className="error-message">{errors.departureDate}</p>
+            )}
           </label>
 
           <label>
@@ -132,7 +193,10 @@ const App = () => {
                   returnDate: date,
                 }))
               }
-            />
+            />{" "}
+            {errors.returnDate && !isReturnDisabled && (
+              <p className="error-message">{errors.returnDate}</p>
+            )}
           </label>
         </div>
 
