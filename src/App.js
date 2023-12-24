@@ -3,6 +3,7 @@ import "./reset.css";
 import "./App.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
 const App = () => {
   const [formValues, setFormValues] = useState({
@@ -123,21 +124,47 @@ const App = () => {
           )}
         </div>
 
-        <button type="submit">
+        <button type="submit" id="search-button">
           Search flights <span>&#x2192;</span>
         </button>
       </form>
 
       {loading && <p>Yükleniyor...</p>}
-
-      <div>
-        {flights.map((flight) => (
-          <div key={flight.id}>
-            <p>Havayolu: {flight.airline}</p>
-            <p>Şehir: {flight.departureCity}</p>
-            {/* Diğer bilgileri ekleyin */}
-          </div>
-        ))}
+      <div className="filter-container">
+        <button className="filter-button">Departure</button>
+        <button className="filter-button">Arrival</button>
+        <button className="filter-button">Airline</button>
+        <button className="filter-button">Duration</button>
+      </div>
+      <div className="list-container">
+        <ul className="list">
+          {flights.map((flight) => {
+            const departureTime = flight.departureTime;
+            const arrivalTime = flight.arrivalTime;
+            const depDateObject = new Date(departureTime);
+            const arrDateObject = new Date(arrivalTime);
+            const formattedDepartureTime = format(depDateObject, "HH:mm");
+            const formattedArrivalTime = format(arrDateObject, "HH:mm");
+            return (
+              <li key={flight.id}>
+                <div className="flight-info">
+                  <div className="departure-info">
+                    <p className="time">{formattedDepartureTime}</p>
+                    <p className="airport-code">{flight.departureCode}</p>
+                    <p className="city">{flight.departureCity}</p>
+                  </div>
+                  <p className="duration">{flight.duration}</p>
+                  <div className="arrival-info">
+                    <p className="time">{formattedArrivalTime}</p>
+                    <p className="airport-code">{flight.arrivalCode}</p>
+                    <p className="city">{flight.arrivalCity}</p>
+                  </div>
+                </div>
+                <span className="price"> {flight.price} $</span>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );

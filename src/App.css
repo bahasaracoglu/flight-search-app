@@ -4,9 +4,6 @@ body {
   font-size: 18px;
   background-color: #f4f5f8;
 }
-.content {
-  text-align: center;
-}
 
 header {
   color: #ffffff;
@@ -26,7 +23,6 @@ form {
   background-color: #ffffff;
   gap: 1em;
   margin: 3em auto 0 auto;
-
   padding: 1em 0;
   max-width: 90%;
 }
@@ -69,12 +65,104 @@ input {
   border-radius: 0.5em;
   margin-top: 0.5em;
 }
-button {
+#search-button {
   background-color: #e81932;
   color: #ffffff;
-  font-weight: bolder;
+  font-weight: 600;
   font-size: 18px;
   padding: 1em;
   border-radius: 0.5em;
   border: none;
+}
+.list-container {
+  margin: 3em auto 0 auto;
+  max-width: 90%;
+}
+.list {
+  border: 2px solid #e6e6e6;
+  max-width: 720px;
+  margin: 1em auto;
+}
+ul {
+  margin-top: 2em;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  min-height: 81px;
+  box-sizing: border-box;
+  max-width: 500px;
+}
+
+li:first-child {
+  margin-top: 1em;
+}
+.flight-info {
+  flex: content;
+  padding: 0.5em;
+  display: flex;
+  gap: 1em;
+  background-color: #ffffff;
+  align-items: center;
+  justify-content: space-between;
+}
+.departure-info {
+  text-align: left;
+}
+.arrival-info {
+  text-align: right;
+}
+.duration {
+  font-size: 15px;
+  min-width: 88px;
+  text-align: center;
+}
+
+.airport-code,
+.city {
+  font-size: 15px;
+  color: #697886;
+}
+.time {
+  font-weight: 500;
+}
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 20px;
+  margin-left: 1em;
+  background-color: #ffffff;
+  padding: 0.5em;
+}
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1em;
+  align-items: center;
+  justify-content: center;
+}
+.filter-button {
+  line-height: 25px;
+  padding: 5px 10px;
+
+  border-radius: 5px;
+  color: #232b38;
+  box-shadow: 0 4px 8px #dadada;
+  background-color: #ffffff;
+}
+.filter-button:hover {
+  border-color: #3685e7;
+  color: #3685e7 !important;
+}
+.flight-item {
+  height: 115px;
 }
